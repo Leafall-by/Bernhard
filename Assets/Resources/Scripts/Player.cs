@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     private PlayerHealth _playerHealth;
     private PlayerWalker _playerWalker;
 
-    public void Init(int health, int speed)
+    public void Init(int health, float speed)
     {
         _playerHealth = GetComponent<PlayerHealth>();
         _playerHealth.Init(health);

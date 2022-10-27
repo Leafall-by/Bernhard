@@ -20,7 +20,7 @@ public class PlayerWalker : MonoBehaviour
     }
 
     private void Run()
-    {
+    
         float horizontalX = Input.GetAxis("Horizontal");
 
         float horizontalY = Input.GetAxis("Vertical");
