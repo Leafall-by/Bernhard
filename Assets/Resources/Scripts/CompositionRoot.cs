@@ -10,9 +10,10 @@ namespace Assets.Resources.Scripts
     internal class CompositionRoot : MonoBehaviour
     {
         [SerializeField] private Player _player;
+        [SerializeField] private int _speed;
         private void Awake()
         {
-            _player.Init(100, 10);
+            _player.Init(100, _speed);
         }
     }
 }
