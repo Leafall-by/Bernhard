@@ -1,14 +1,17 @@
 fileFormatVersion: 2
-guid: 3828e7646d1cbf84abec54ecb9ae1b28
+guid: 405d9b8bf6db3bc4ab71622044d7e666
 ModelImporter:
-  serializedVersion: 21202
-  internalIDToNameTable: []
+  serializedVersion: 21300
+  internalIDToNameTable:
+  - first:
+      74: -3857673737237621108
+    second: Armature.001|Armature.001|Armature.001|Walk
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material.001
-    second: {fileID: 2100000, guid: 37c8453ed26544246b8dd4b4e7d60848, type: 2}
+      name: Material
+    second: {fileID: 2100000, guid: 074fbe701276ac74ea53fa25e41aa3b7, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -81,7 +84,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 1
+  importAnimation: 0
   humanDescription:
     serializedVersion: 3
     human: []
@@ -104,6 +107,7 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 
   assetBundleName: 
