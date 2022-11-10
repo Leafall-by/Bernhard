@@ -15,7 +15,7 @@ public class PlayerWalker : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
 
         _playerAnimator = GetComponent<PlayerAnimator>();
-        _playerAnimator.Init();
+        _playerAnimator.Init(speed);
     }
 
     private void FixedUpdate()
