@@ -13,7 +13,7 @@ public abstract class Weapon : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Shoot();
         }
@@ -21,9 +21,13 @@ public abstract class Weapon : MonoBehaviour
 
     public void Shoot()
     {
-        Bullet bullet = Instantiate(_bulletPrefab).GetComponent<Bullet>();
-        bullet.Init(_damage);
-        bullet.gameObject.GetComponent<Rigidbody>().AddForce(0, 0, 100);
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            hit.rigidbody.AddForce(-hit.normal * 100, ForceMode.Impulse);
+        }
     }
 
     abstract public void Reload();

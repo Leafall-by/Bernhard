@@ -29,10 +29,9 @@ public class PlayerWalker : MonoBehaviour
 
         float horizontalY = Input.GetAxis("Vertical");
 
-        _playerAnimator.StartRun(horizontalX, horizontalY);
+        Vector3 movement = new Vector3(horizontalX, 0.0f, horizontalY);//Camera.main.transform.right * horizontalX + Camera.main.transform.forward * horizontalY;
+        movement.y = 0f;
 
-        Vector3 movement = new Vector3(horizontalX, 0.0f, horizontalY);
-
-        _rb.velocity = (movement * _speed);
+        _rb.velocity = (movement * _speed * Time.deltaTime);
     }
 }

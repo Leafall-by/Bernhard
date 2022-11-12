@@ -18,7 +18,5 @@ internal class Bullet : MonoBehaviour
     {
         Debug.Log("FFF");
     }
-
-
 }
 
