@@ -16,6 +16,7 @@ public class FPSCameraController : MonoBehaviour
         Cursor.visible = false;
     }
 
+    //TODO ѕрицел, пока здесь, но потом перенести
     void OnGUI()
     {
         Vector3 vector = new Vector3(Screen.width / 2, Screen.height / 2, 0);
@@ -24,6 +25,11 @@ public class FPSCameraController : MonoBehaviour
 }
 
     void Update()
+    {
+        Rotate();
+    }
+
+    private void Rotate()
     {
         var vertical = -Input.GetAxis("Mouse Y") * _sensivity * Time.deltaTime;
         var horizontal = Input.GetAxis("Mouse X") * _sensivity * Time.deltaTime;

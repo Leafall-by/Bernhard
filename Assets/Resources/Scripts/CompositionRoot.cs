@@ -11,9 +11,10 @@ namespace Assets.Resources.Scripts
     {
         [SerializeField] private Player _player;
         [SerializeField] private int _speed;
+        [SerializeField] private int _health;
         private void Awake()
         {
-            _player.Init(100, _speed);
+            _player.Init(_health, _speed);
         }
     }
 }
