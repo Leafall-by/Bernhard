@@ -31,10 +31,14 @@ public class PlayerWalker : NetworkBehaviour
     {
         float horizontalX = Input.GetAxis("Horizontal");
 
-        float horizontalY = Input.GetAxis("Vertical");
+        float horizontalZ = Input.GetAxis("Vertical");
+        
+        Vector3 movement = new Vector3(horizontalX, 0, horizontalZ);
+        
+        float fixedSpeed = _speed * Time.fixedDeltaTime;
+        
+        _playerAnimator.StartRun(horizontalX * fixedSpeed * 10, horizontalZ * fixedSpeed * 10);
 
-        Vector3 movement = new Vector3(horizontalX, 0, horizontalY);
-
-        transform.Translate(movement * _speed * Time.fixedDeltaTime);
+        transform.Translate(movement * fixedSpeed);
     }
 }
