@@ -1,10 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerWalker : MonoBehaviour
+public class PlayerWalker : NetworkBehaviour
 {
     private float _speed;
     private PlayerAnimator _playerAnimator;
@@ -19,7 +21,10 @@ public class PlayerWalker : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Run();
+        if (isLocalPlayer)
+        {
+            Run();   
+        }
     }
 
     private void Run()
