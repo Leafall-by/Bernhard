@@ -4,15 +4,12 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Mirror;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class Server : NetworkManager
 {
     [Header("Settings")]
     [SerializeField] private GameObject clientPrefab;
-    
-    static public int _playerNumber;
-    
+
     public override void OnStartServer()
     {
         base.OnStartServer();
@@ -30,7 +27,5 @@ public class Server : NetworkManager
         base.OnClientConnect();
         PosMessage message = new PosMessage();
         NetworkClient.Send(message);
-
-        _playerNumber++;
     }
 }
