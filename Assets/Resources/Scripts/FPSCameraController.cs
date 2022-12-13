@@ -1,21 +1,52 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Mirror;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class FPSCameraController : MonoBehaviour
 {
-    [SerializeField] private float _sensivity;
-    [SerializeField] private Transform _player;
-    [SerializeField] private float _verticalLover;
-    [SerializeField] private float _verticalUpper;
+    [SerializeField] private GameObject cameraMountPoint;
+    [SerializeField] private float sensivity;
+    [SerializeField] private Transform player;
+    [SerializeField] private float verticalLover;
+    [SerializeField] private float verticalUpper;
     private float _currentVerticalAngle;
+    private NetworkBehaviour _playerNetwork;
+        
     private void Start()
     {
+        _playerNetwork = GetComponentInParent<NetworkBehaviour>();
+        
+        if (_playerNetwork.isLocalPlayer == false)
+            return;
+        
+        PlaceCamera();
+        
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    private void PlaceCamera()
+    {
+        try
+        {
+            CheckCamera();
+        }
+        catch (CameraNotFoundException ex)
+        {
+           //UserKicker.DisconnectPlayer(_playerNetwork.connectionToClient);
+        }
+        
+        Transform cameraTransform = Camera.main.gameObject.transform;
+        Camera.main.transform.parent = cameraMountPoint.transform;
+        cameraTransform.position = cameraMountPoint.transform.position;
+        cameraTransform.rotation = cameraMountPoint.transform.rotation;
+    }
+
+    private void CheckCamera()
+    {
+        if (Camera.main == null)
+        {
+            throw new CameraNotFoundException("Camera not found");
+        }
     }
 
     //TODO Перенести прицел в отдельный класс
@@ -28,16 +59,19 @@ public class FPSCameraController : MonoBehaviour
 
     private void Update()
     {
-        Rotate();
+        if (_playerNetwork.isLocalPlayer)
+        {
+            Rotate();   
+        }
     }
 
     public void Rotate()
     {
-        var vertical = -Input.GetAxis("Mouse Y") * _sensivity * Time.deltaTime;
-        var horizontal = Input.GetAxis("Mouse X") * _sensivity * Time.deltaTime;
+        var vertical = -Input.GetAxis("Mouse Y") * sensivity * Time.deltaTime;
+        var horizontal = Input.GetAxis("Mouse X") * sensivity * Time.deltaTime;
 
-        _currentVerticalAngle = Mathf.Clamp(_currentVerticalAngle + vertical, _verticalUpper, _verticalLover);
+        _currentVerticalAngle = Mathf.Clamp(_currentVerticalAngle + vertical, verticalLover, verticalUpper);
         transform.localRotation = Quaternion.Euler(_currentVerticalAngle, 0, 0);
-        _player.Rotate(0, horizontal, 0);
+        player.Rotate(0, horizontal, 0);
     }
 }

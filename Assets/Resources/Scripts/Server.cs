@@ -28,4 +28,9 @@ public class Server : NetworkManager
         PosMessage message = new PosMessage();
         NetworkClient.Send(message);
     }
+
+    public override void OnClientDisconnect()
+    {
+        base.OnClientDisconnect();
+    }
 }

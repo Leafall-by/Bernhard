@@ -150,7 +150,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  CameraMountPoint: {fileID: 8836767452172956427}
   _speed: 30
   _health: 100
 --- !u!114 &2175506837070673206
@@ -977,10 +976,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c44ba6bbe408d8419ed1d8f36b5b7cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sensivity: 444
-  _player: {fileID: 1853876163067380287}
-  _verticalLover: 80
-  _verticalUpper: -80
+  cameraMountPoint: {fileID: 8836767452172956427}
+  sensivity: 444
+  player: {fileID: 1853876163067380287}
+  verticalLover: -80
+  verticalUpper: 90
 --- !u!1 &9048168961915536126
 GameObject:
   m_ObjectHideFlags: 0
