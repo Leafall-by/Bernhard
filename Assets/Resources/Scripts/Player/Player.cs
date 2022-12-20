@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 
-[RequireComponent (typeof(PlayerHealth), typeof(PlayerWalker))]
+[RequireComponent (typeof(PlayerHealth), typeof(PlayerWalker), typeof(PlayerShooter))]
 public class Player : NetworkBehaviour
 {
     [SerializeField] private int _speed;
@@ -12,6 +12,7 @@ public class Player : NetworkBehaviour
 
     private PlayerHealth _playerHealth;
     private PlayerWalker _playerWalker;
+    private PlayerShooter _playerShooter;
 
     public void Start()
     {
@@ -20,5 +21,18 @@ public class Player : NetworkBehaviour
         
         _playerWalker = GetComponent<PlayerWalker>();
         _playerWalker.Init(_speed);
+
+        _playerShooter = GetComponent<PlayerShooter>();
+    }
+
+    private void Update()
+    {
+        if (isLocalPlayer == false)
+            return;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            _playerShooter.Shoot();
+        }
     }
 } 

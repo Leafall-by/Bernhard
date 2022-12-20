@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
@@ -10,14 +12,6 @@ public abstract class Weapon : MonoBehaviour
 
     [SerializeField] private int _maxAmmo;
     protected int _currentAmmo;
-
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Shoot();
-        }
-    }
 
     public void Shoot()
     {
