@@ -1,30 +1,20 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PushedObject : NetworkBehaviour
 {
-    private Rigidbody _rigidbody;
-    private NetworkIdentity i;
+    [SerializeField] private int pushForce;
     
-    private void Start()
+    
+    
+    public void PushObject(Vector3 vector)
     {
-        _rigidbody = GetComponent<Rigidbody>();
-    }
-
-    [Command(requiresAuthority = false)]
-    public void Push()
-    {
-        ServerPush();
-    }
-
-
-    [Server]
-    public void ServerPush()
-    {
+        Debug.Log("1");
         
-        _rigidbody.AddForce(Vector3.forward * 100, ForceMode.Impulse);
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.AddForce(vector * pushForce, ForceMode.Impulse);
     }
 }

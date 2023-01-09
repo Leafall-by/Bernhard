@@ -8,7 +8,9 @@ using UnityEngine;
 public class Server : NetworkManager
 {
     [Header("Settings")]
+    [SerializeField] private PlayerCounter playerCounterHandler;
     [SerializeField] private GameObject clientPrefab;
+    
 
     public override void OnStartServer()
     {
@@ -27,6 +29,7 @@ public class Server : NetworkManager
         base.OnClientConnect();
         PosMessage message = new PosMessage();
         NetworkClient.Send(message);
+        
     }
 
     public override void OnClientDisconnect()

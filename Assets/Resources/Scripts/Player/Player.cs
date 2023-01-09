@@ -1,38 +1,33 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 
-[RequireComponent (typeof(PlayerHealth), typeof(PlayerWalker), typeof(PlayerShooter))]
+[RequireComponent(typeof(PlayerHealth), typeof(PlayerWalker), typeof(PlayerShooter))]
 public class Player : NetworkBehaviour
 {
-    [SerializeField] private int _speed;
-    [SerializeField] private int _health;
+    [SerializeField] private int speed;
+    [SerializeField] private int health;
 
     private PlayerHealth _playerHealth;
     private PlayerWalker _playerWalker;
     private PlayerShooter _playerShooter;
 
-    public void Start()
-    {
-        _playerHealth = GetComponent<PlayerHealth>();
-        _playerHealth.Init(_health);
-        
-        _playerWalker = GetComponent<PlayerWalker>();
-        _playerWalker.Init(_speed);
 
-        _playerShooter = GetComponent<PlayerShooter>();
-    }
-
-    private void Update()
+    public override void OnStartClient()
     {
         if (isLocalPlayer == false)
-            return;
-
-        if (Input.GetMouseButtonDown(0))
         {
-            _playerShooter.Shoot();
+            return;
         }
+        
+        _playerHealth = GetComponent<PlayerHealth>();
+        _playerHealth.Init(health);
+        
+        _playerWalker = GetComponent<PlayerWalker>();
+        _playerWalker.Init(speed);
+        
+        _playerShooter = GetComponent<PlayerShooter>();
+        _playerShooter.Init();
+
+        GetComponentInChildren<FPSCameraController>().Init();
     }
-} 
+}

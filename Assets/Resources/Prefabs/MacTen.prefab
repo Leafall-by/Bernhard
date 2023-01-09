@@ -93,6 +93,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6130896360406139179}
   - component: {fileID: 5953733129991758907}
+  - component: {fileID: 7413873590844513650}
+  - component: {fileID: 786222931986261819}
   m_Layer: 0
   m_Name: MacTen
   m_TagString: Untagged
@@ -109,7 +111,7 @@ Transform:
   m_GameObject: {fileID: 6800014794105428881}
   m_LocalRotation: {x: -0, y: -0.6945955, z: -0, w: 0.71940047}
   m_LocalPosition: {x: 1.6499996, y: 7.8999996, z: 5.500002}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.09, y: 0.09, z: 0.09}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6647022883027334708}
@@ -129,9 +131,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b257413c9729b446bf03cc7631e17cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 1435925277183376693, guid: 9e96c79c6035d994992f4d204372259d, type: 3}
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  _bulletPrefab: {fileID: 6954532534261238730, guid: ac50ae7af0252e241b673884527d23ad, type: 3}
   _damage: 155
   _maxAmmo: 0
+--- !u!114 &7413873590844513650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6800014794105428881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 1309248902
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
+--- !u!114 &786222931986261819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6800014794105428881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 6130896360406139179}
+  clientAuthority: 0
+  onlySyncOnChange: 1
+  bufferResetMultiplier: 5
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
 --- !u!1 &7906911587027028956
 GameObject:
   m_ObjectHideFlags: 0

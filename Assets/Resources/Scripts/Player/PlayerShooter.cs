@@ -1,14 +1,45 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
-public class PlayerShooter : MonoBehaviour
+public class PlayerShooter : NetworkBehaviour
 {
-    [SerializeField] private Weapon weapon;
+    [SerializeField] private GameObject _weaponPrefab;
+    [SerializeField] private Transform _place;
+    
+    private Weapon weapon;
 
-    public void Shoot()
+    [SyncVar]
+    public GameObject weaponObject;
+
+    [Command(requiresAuthority = false)]
+    public void Init()
     {
-        weapon.Shoot();
+        CmdCreateWeapon();
+    }
+
+    [Server]
+    private void CmdCreateWeapon()
+    {
+        weaponObject = Instantiate(_weaponPrefab);
+        Debug.Log(weaponObject == null ? "yes" : "no");
+        NetworkServer.Spawn(weaponObject);
+        SetWeaponAtPosition(weaponObject);
+    }
+
+    private void SetWeaponAtPosition(GameObject weaponObject)
+    {
+        weaponObject.transform.position = _place.transform.position;
+        weaponObject.transform.rotation = _place.transform.rotation;
+    }
+
+    private void Update()
+    {
+        if (isLocalPlayer == false)
+            return;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            weapon.Shoot();
+        }
     }
 }

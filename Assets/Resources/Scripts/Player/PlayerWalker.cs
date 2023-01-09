@@ -23,7 +23,7 @@ public class PlayerWalker : NetworkBehaviour
             Run();   
         }
     }
-
+    
     private void Run()
     {
         float horizontalX = Input.GetAxis("Horizontal");

@@ -1,3 +1,4 @@
+using System;
 using Mirror;
 using UnityEngine;
 
@@ -10,18 +11,17 @@ public class FPSCameraController : MonoBehaviour
     [SerializeField] private float verticalUpper;
     private float _currentVerticalAngle;
     private NetworkBehaviour _playerNetwork;
-        
-    private void Start()
+    
+    public void Init()
     {
         _playerNetwork = GetComponentInParent<NetworkBehaviour>();
-        
+
         if (_playerNetwork.isLocalPlayer == false)
             return;
-        
+
         PlaceCamera();
         
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        HideCursor();
     }
 
     private void PlaceCamera()
@@ -33,12 +33,19 @@ public class FPSCameraController : MonoBehaviour
         catch (CameraNotFoundException ex)
         {
            //UserKicker.DisconnectPlayer(_playerNetwork.connectionToClient);
+           Debug.Log(ex.Message);
         }
         
         Transform cameraTransform = Camera.main.gameObject.transform;
         Camera.main.transform.parent = cameraMountPoint.transform;
         cameraTransform.position = cameraMountPoint.transform.position;
         cameraTransform.rotation = cameraMountPoint.transform.rotation;
+    }
+
+    private void HideCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void CheckCamera()
@@ -59,9 +66,16 @@ public class FPSCameraController : MonoBehaviour
 
     private void Update()
     {
-        if (_playerNetwork.isLocalPlayer)
+        try
         {
-            Rotate();   
+            if (_playerNetwork.isLocalPlayer)
+            {
+                Rotate();   
+            }
+        }
+        catch (NullReferenceException e)
+        {
+            this.enabled = false;
         }
     }
 

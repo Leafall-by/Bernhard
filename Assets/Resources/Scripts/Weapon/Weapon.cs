@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 
-public abstract class Weapon : MonoBehaviour
+public abstract class Weapon : NetworkBehaviour
 {
     [SerializeField] private GameObject _bulletPrefab;
 
@@ -12,16 +12,21 @@ public abstract class Weapon : MonoBehaviour
 
     [SerializeField] private int _maxAmmo;
     protected int _currentAmmo;
-
+    
+    
     public void Shoot()
     {
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        Vector3 bulletPosition = Camera.main.transform.position;
+        Quaternion bulletQuaternion = Camera.main.transform.rotation;
 
-        if (Physics.Raycast(ray, out hit))
-        {
-            hit.rigidbody.AddForce(-hit.normal * 100, ForceMode.Impulse);
-        }
+        CmdSpawnBullet(bulletPosition, bulletQuaternion);
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdSpawnBullet(Vector3 position, Quaternion quaternion)
+    {
+        GameObject bullet = Instantiate(_bulletPrefab, position, quaternion);
+        NetworkServer.Spawn(bullet);
     }
 
     abstract public void Reload();
